@@ -1,0 +1,5 @@
+# Add these lines to your .htaccess file above the "BEGIN WordPress" section.
+RewriteEngine on
+RewriteCond %{REQUEST_URI} /wp-json/oembed/1\.0/embed
+RewriteCond %{QUERY_STRING} !bypass=
+RewriteRule .* https://%{HTTP_HOST}/oembed.php?%{QUERY_STRING} [L]
