@@ -36,7 +36,7 @@ class WpOembed
 
         // Look for a cache file
         $query = $_SERVER['QUERY_STRING'] ?? '';
-        $hash = sha1($query);
+        $hash = sha1(urldecode($query));
         $cacheFile = $_SERVER['DOCUMENT_ROOT'] . $config['cachePath'] . "/$hash.cache";
         $now = time();
         if (file_exists($cacheFile)) {
