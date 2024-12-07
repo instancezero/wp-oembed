@@ -1,4 +1,14 @@
 <?php
+/**
+ * Copyright 2024 Alan Langford
+ * https://github.com/instancezero
+ * https://ambitonline.com
+ *
+ * This code is licensed under the GPL, version 3 or later.
+ * You are free to distribute and modify it under the terms of the GPLv3.
+ * You may add a notice to claim copyright over your modifications,
+ * but you may not remove my copyright notice.
+ */
 
 class WpOembed
 {
