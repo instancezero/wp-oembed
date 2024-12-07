@@ -42,7 +42,7 @@ It's a well-designed plugin, and I highly recommend it.
 
 Unfortunately, this approach doesn't help that much when it comes to a bottleneck of 
 too many database connections. 
-`wp-oembed` is a much less sophisticated file cache that doesn't need a database connection.
+`wp-oembed` is a basic file cache that doesn't need a database connection.
 Unlike WP REST Cache, it's deliberately designed to be quick and unsophisticated.
 
 Through a simple rewrite rule in `.htaccess`, embed requests are directed to `oembed.php`.
