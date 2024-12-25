@@ -61,7 +61,14 @@ class WpOembed
         }
         $protocol = (($_SERVER['HTTPS'] ?? '') === 'on') ? 'https://' : 'http://';
         $host = $_SERVER['SERVER_NAME'] ?? 'localhost';
-        $json = file_get_contents("$protocol$host/wp-json/oembed/1.0/embed$query");
+        $bypass = curl_init();
+        curl_setopt($bypass, CURLOPT_HEADER, 0);
+        curl_setopt($bypass, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt(
+            $bypass, CURLOPT_URL,
+            "$protocol$host/wp-json/oembed/1.0/embed?bypass=1&url=" . urlencode($url)
+        );
+        $json = curl_exec($bypass);
         if ($json === false) {
             http_response_code(500);
             echo "Server error. Request failed.";
