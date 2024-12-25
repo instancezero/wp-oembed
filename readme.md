@@ -81,6 +81,10 @@ even with formerly great search engines adding random `srsltid` arguments to the
 If this becomes a big problem, I'll add some purge functionality that can be run through a cron job.
 Worst case, there's no harm in removing all the files in the cache folder.
 
+# Changelog
+
+1.0.0 Switched to calculating the hash on just the url parameter instead of the whole query.
+
 # Donations Welcome
 
 If you find wp-oembed useful, please consider

@@ -19,7 +19,7 @@ class WpOembed
         'd' => 24*3600,
     ];
 
-    public function request()
+    public function request(): void
     {
         if ($_GET['bypass'] ?? false) {
             echo "Not bypassed, check access rules.";
@@ -34,9 +34,13 @@ class WpOembed
             ];
         }
 
-        // Look for a cache file
+        // Look for a cache file, get the decoded URL and hash that to get the cache file name.
         $query = $_SERVER['QUERY_STRING'] ?? '';
-        $hash = sha1(urldecode($query));
+        $url = $_GET['url'];
+        if (!preg_match('!https?:!', $url)) {
+            $url = urldecode($url);
+        }
+        $hash = sha1($url);
         $cacheFile = $_SERVER['DOCUMENT_ROOT'] . $config['cachePath'] . "/$hash.cache";
         $now = time();
         if (file_exists($cacheFile)) {
@@ -49,7 +53,7 @@ class WpOembed
                 return;
             }
         }
-        // Pass the request to WP
+        // Nothing in the cache, Pass the request to WP
         if ($query === '') {
             $query = '?bypass=1';
         } else {
@@ -59,8 +63,8 @@ class WpOembed
         $host = $_SERVER['SERVER_NAME'] ?? 'localhost';
         $json = file_get_contents("$protocol$host/wp-json/oembed/1.0/embed$query");
         if ($json === false) {
-            echo "Call to WP failed";
             http_response_code(500);
+            echo "Server error. Request failed.";
             return;
         }
         // Write or rewrite the cache file
